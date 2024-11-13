@@ -4,6 +4,7 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import Resume from './components/Resume';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -23,6 +24,7 @@ function App() {
           path="/resume-frontend"
           element={
             <ProtectedRoute>
+              <Logout />
               <Resume />
             </ProtectedRoute>
           }

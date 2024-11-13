@@ -9,7 +9,7 @@ function Logout() {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    navigate('/resume-frontend');
+    navigate('/resume-frontend/login');
   };
 
   return <button onClick={handleLogout}>Logout</button>;

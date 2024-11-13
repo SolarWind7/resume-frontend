@@ -1,7 +1,5 @@
 // src/components/ContactInfo.js
 
-// src/components/ContactInfo.js
-
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import PhoneInput from 'react-phone-input-2';
@@ -21,10 +19,8 @@ function ContactInfo() {
   useEffect(() => {
     api.get('/resume/contactinfo/')
       .then(response => {
-//            console.log("API Response Data:", response.data);
+          if (response.data != null && response.data.length > 0)
             setContactInfo(response.data[0]);
-//	    console.log(response.data[0].name);
-
       })
       .catch(error => console.error("Error fetching contact info:", error));
   }, []);
@@ -39,14 +35,7 @@ function ContactInfo() {
   };
 
   const handleSaveContactInfo = () => {
-/*        const phoneNumber = parsePhoneNumberFromString(contactInfo.phone);//, 'US'); // Replace 'US'>
-        if (phoneNumber && phoneNumber.isValid()) {
-            contactInfo.phone = phoneNumber.formatInternational();
-        } else {
-            contactInfo.phone = ''; // Clear if the format is invalid
-        }
-*/
-	if (contactInfo.id == '') {
+  if (contactInfo.id == '') {
 	    api.post('/resume/contactinfo/', contactInfo)
 		.then(response => setContactInfo(response.data[0]))
 		.catch(error => {

@@ -40,8 +40,8 @@ function Experience() {
     //console.log(e.target.name);
     //console.log(e.target.value);
     const updatedExperience = [...experience];
-    updatedExperience[id-1] = {
-        ...updatedExperience[id-1],
+    updatedExperience[id] = {
+        ...updatedExperience[id],
         [name]: value,
     };
     setExperience(updatedExperience);
@@ -65,6 +65,13 @@ function Experience() {
       .catch(error => console.error("Error deleting experience:", error));
   };
 
+  var exp_id_count_map = {};
+
+  for (var i=0; i < experience.length; i++) {
+    exp_id_count_map[experience[i].id] = i;
+  }
+//  console.log(education_id_count_map);
+
   return (
     <div>
       <h2>Experience</h2>
@@ -79,7 +86,7 @@ function Experience() {
       </div>
       <ul>
         {experience.map((exp) => (
-          <li key={exp.id}>
+          <li key={exp_id_count_map[exp.id]}>
               {/* List and Edit Existing Experience Entries */}
               <h3>{exp.job_title}</h3>
               <p>{exp.company}</p>
@@ -90,28 +97,28 @@ function Experience() {
               type="text"
               name="job_title"
               value={exp.job_title}
-              onChange={(e) => {handleUpdateChange(exp.id, e)}}
+              onChange={(e) => {handleUpdateChange(exp_id_count_map[exp.id], e)}}
             />
             <input
               type="text"
               name="company"
               value={exp.company}
-              onChange={(e) => {handleUpdateChange(exp.id, e)}}
+              onChange={(e) => {handleUpdateChange(exp_id_count_map[exp.id], e)}}
             />
             <input
               type="date"
               name="start_date"
               value={exp.start_date}
-              onChange={(e) => {handleUpdateChange(exp.id, e)}}
+              onChange={(e) => {handleUpdateChange(exp_id_count_map[exp.id], e)}}
             />
             <input
               type="date"
               name="end_date"
               value={exp.end_date || ''}
-              onChange={(e) => {handleUpdateChange(exp.id, e)}}
+              onChange={(e) => {handleUpdateChange(exp_id_count_map[exp.id], e)}}
             />
             <div>
-            <textarea name="description" placeholder="Description" value={exp.description} onChange={(e) => {handleUpdateChange(exp.id, e)}}></textarea>
+            <textarea name="description" placeholder="Description" value={exp.description} onChange={(e) => {handleUpdateChange(exp_id_count_map[exp.id], e)}}></textarea>
             </div>
             <button onClick={() => handleUpdateExperience(exp.id, exp)}>Save</button>
             <button onClick={() => handleDeleteExperience(exp.id)}>Delete</button>
